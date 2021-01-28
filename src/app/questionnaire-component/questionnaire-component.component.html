@@ -1,0 +1,33 @@
+<div class="card m-3">
+    <h1 class="bd-title card-header" id="content">Dynamic validation example</h1>
+    <br />
+    <div class="card-body">
+        <form [formGroup]="questionFormGroup" (ngSubmit)="onSubmit()" novalidate>
+            <div class="form-row" *ngFor="let row of dynamicJSON; let i = index;">
+                <div class="form-group col">
+
+                    <div *ngIf="row.type == 'boolean'" class="form-group col-5">
+                        <label> {{row.text}}</label>
+                        <input formControlName="value" type="radio" value="Yes" class="form-control" required />
+
+                        <div class="invalid" *ngIf="submitted && f.value.status == 'INVALID'">Value is requred!</div>
+
+                    </div>
+                    <fieldset *ngIf="row.type == 'group'">
+                        <legend>{{row.text}}</legend>
+                        <div *ngFor="let r of row.item" class="form-group col-5">
+                            <label>{{r.text}}</label>
+                            <input formControlName="value" [type]="r.type == 'string' ? 'text' : r.type"
+                                class="form-control" required />
+                            <div class="invalid" *ngIf="submitted && f.value.status == 'INVALID'">Value is requred!
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+                </div>
+            </div>
+            <button class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

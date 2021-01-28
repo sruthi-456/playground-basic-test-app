@@ -16,6 +16,16 @@ export class ApiService {
       { headers: this.getHeaders() });
   }
 
+  getPatientOnBirthDate(){
+    return this.httpClient.get(environment.queryURI + '/Patient',
+    { headers: this.getHeaders() });
+}
+
+searchPatient(name,birthdate){
+  return this.httpClient.get(environment.queryURI + '/Patient?birthdate='+birthdate+'&name='+name,
+  { headers: this.getHeaders() });
+}
+
   private getHeaders(): HttpHeaders {
     const headers = new HttpHeaders({
       'Content-Type': 'application/fhir+json'
